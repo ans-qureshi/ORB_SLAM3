@@ -65,12 +65,6 @@ cd ~/Dev
 git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git 
 cd ORB_SLAM3
 ```
-We need to change the header file `gedit ./include/LoopClosing.h` at line 51  
-from  
-`Eigen::aligned_allocator<std::pair<const KeyFrame*, g2o::Sim3> > > KeyFrameAndPose;`  
-to  
-`Eigen::aligned_allocator<std::pair<KeyFrame *const, g2o::Sim3> > > KeyFrameAndPose;`
-in order to make this comiple.  
 Now, we can comiple ORB-SLAM3 and it dependencies as DBoW2 and g2o.  
 
 Now Simply just run (if you encounter compiler, try to run the this shell script 2 or 3 more time. It works for me.)
@@ -302,6 +296,21 @@ and add at the end the following line. Replace PATH by the folder where you clon
   chmod +x build_ros.sh
   ./build_ros.sh
   ```
+
+3. To encounter following error:
+   /Pangolin/components/pango_core/include/sigslot/signal.hpp:1180:65: error: ‘slots_reference’ was not declared in this scope
+   ```
+   cd Examples/ROS
+   sed -i 's/++11/++14/g' CMakeLists.txt
+   ```
+   File “/opt/ros/noetic/lib/python3/dist-packages/roslib/launcher.py”, line 42, in <module> import rospkg ModuleNotFoundError: No module named ‘rospkg
+   ```
+    sudo pip install --target=/opt/ros/noetic/lib/python3/dist-packages rospkg
+   ```
+   ERROR: launchpadlib 1.10.13 requires testresources, which is not installed.
+   ```
+       sudo apt install python3-testresources
+   ```
   
 ### Running Monocular Node
 For a monocular input from topic `/camera/image_raw` run node ORB_SLAM3/Mono. You will need to provide the vocabulary file and a settings file. See the monocular examples above.
