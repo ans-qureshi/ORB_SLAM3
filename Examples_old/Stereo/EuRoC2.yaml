@@ -1,0 +1,128 @@
+%YAML:1.0
+
+#--------------------------------------------------------------------------------------------
+# System config
+#--------------------------------------------------------------------------------------------
+
+# When the variables are commented, the system doesn't load a previous session or not store the current one
+
+# If the LoadFile doesn't exist, the system gives a message and creates a new Atlas from scratch
+#System.LoadAtlasFromFile: "ZED2_Session"
+
+# The store file is created from the current session, if a file with the same name exists it is deleted
+#System.SaveAtlasToFile: "ZED2_Session"
+
+#--------------------------------------------------------------------------------------------
+# Camera Parameters for ZED 2
+#--------------------------------------------------------------------------------------------
+Camera.type: "PinHole"
+
+# Camera calibration and distortion parameters (OpenCV) - Replace with ZED 2 values
+Camera.fx: 1051.86  # Example focal length (adjust to ZED 2's calibration)
+Camera.fy: 1051.33  # Example focal length (adjust to ZED 2's calibration)
+Camera.cx: 1065.13  # Principal point x (adjust to ZED 2's calibration)
+Camera.cy: 664.725  # Principal point y (adjust to ZED 2's calibration)
+
+Camera.k1: -0.0386 # Adjust if ZED 2's lens has distortion
+Camera.k2: 0.0075
+Camera.p1: 0.0001
+Camera.p2: -00.0004
+
+Camera.bFishEye: 0
+
+Camera.width: 1280  # ZED 2's resolution width
+Camera.height: 720  # ZED 2's resolution height
+
+# Camera frames per second
+Camera.fps: 15.0
+
+# Stereo baseline times fx (Adjust based on ZED 2's baseline)
+Camera.bf: 120.0  # Example value (adjust based on ZED 2 baseline in mm)
+
+# Color order of the images (0: BGR, 1: RGB. It is ignored if images are grayscale)
+Camera.RGB: 1
+
+# Close/Far threshold. Baseline times.
+ThDepth: 50.0  # Adjust to your use case
+
+#--------------------------------------------------------------------------------------------
+# Stereo Rectification for ZED 2
+# Camera.fx, .fy, etc. must match LEFT.P
+#--------------------------------------------------------------------------------------------
+LEFT.height: 1242
+LEFT.width: 2208
+LEFT.D: !!opencv-matrix
+   rows: 1
+   cols: 5
+   dt: d
+   data: [0.0, 0.0, 0.0, 0.0, 0.0]  # Replace with ZED 2 distortion values
+LEFT.K: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [700.0, 0.0, 640.0, 0.0, 700.0, 360.0, 0.0, 0.0, 1.0]  # Replace with ZED 2 intrinsic parameters
+LEFT.R:  !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]  # Rectification matrix
+LEFT.P:  !!opencv-matrix
+   rows: 3
+   cols: 4
+   dt: d
+   data: [700.0, 0.0, 640.0, 0.0, 0.0, 700.0, 360.0, 0.0, 0.0, 0.0, 1.0, 0.0]  # Projection matrix
+
+RIGHT.height: 1242
+RIGHT.width: 2208
+RIGHT.D: !!opencv-matrix
+   rows: 1
+   cols: 5
+   dt: d
+   data: [0.0, 0.0, 0.0, 0.0, 0.0]  # Replace with ZED 2 distortion values
+RIGHT.K: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [700.0, 0.0, 640.0, 0.0, 700.0, 360.0, 0.0, 0.0, 1.0]  # Replace with ZED 2 intrinsic parameters
+RIGHT.R:  !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]  # Rectification matrix
+RIGHT.P:  !!opencv-matrix
+   rows: 3
+   cols: 4
+   dt: d
+   data: [700.0, 0.0, 640.0, -120.0, 0.0, 700.0, 360.0, 0.0, 0.0, 0.0, 1.0, 0.0]  # Projection matrix
+
+#--------------------------------------------------------------------------------------------
+# ORB Parameters
+#--------------------------------------------------------------------------------------------
+
+# ORB Extractor: Number of features per image
+ORBextractor.nFeatures: 12000  # Increase for higher-resolution cameras
+
+# ORB Extractor: Scale factor between levels in the scale pyramid
+ORBextractor.scaleFactor: 1.2
+
+# ORB Extractor: Number of levels in the scale pyramid
+ORBextractor.nLevels: 8
+
+# ORB Extractor: FAST threshold
+ORBextractor.iniThFAST: 10
+ORBextractor.minThFAST: 3
+
+#--------------------------------------------------------------------------------------------
+# Viewer Parameters
+#--------------------------------------------------------------------------------------------
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3
+Viewer.ViewpointX: 0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -1.8
+Viewer.ViewpointF: 500
+Viewer.imageViewScale: 2
