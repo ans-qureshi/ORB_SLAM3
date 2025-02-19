@@ -9,7 +9,7 @@ This guide provides step-by-step instructions for installing ORB-SLAM3 along wit
 
 ### Install OpenCV
 
-1. Open a terminal and create a directory for development:
+1. Open a terminal and create a directory for development :
    ```
    cd ~
    mkdir Dev && cd Dev
